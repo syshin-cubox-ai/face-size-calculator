@@ -47,7 +47,7 @@ class YOLO5Face:
         model.float().fuse().eval()
         self.model = model
 
-    def transform_image(self, img: np.ndarray) -> torch.Tensor:
+    def _transform_image(self, img: np.ndarray) -> torch.Tensor:
         """
         Resizes the input image to fit img_size while maintaining aspect ratio.
         It also converts ndarray to tensor.
@@ -69,7 +69,7 @@ class YOLO5Face:
         img = img.unsqueeze(0)
         return img
 
-    def scale_coords(self, img1_shape, coords: torch.Tensor, img0_shape, ratio_pad=None) -> torch.Tensor:
+    def _scale_coords(self, img1_shape: tuple, coords: torch.Tensor, img0_shape: tuple, ratio_pad=None) -> torch.Tensor:
         # Rescale coords (xyxy) from img1_shape to img0_shape
         if ratio_pad is None:  # calculate from img0_shape
             gain = min(img1_shape[0] / img0_shape[0], img1_shape[1] / img0_shape[1])  # gain  = old / new
@@ -110,7 +110,7 @@ class YOLO5Face:
 
         # Transform image
         original_img_shape = img.shape[:2]
-        img = self.transform_image(img).to(self.device)
+        img = self._transform_image(img).to(self.device)
         transformed_img_shape = img.shape[2:]
 
         # Inference
@@ -120,7 +120,7 @@ class YOLO5Face:
 
         # Rescale coordinates from inference size to input image size
         if pred.shape[0] > 0:
-            pred = self.scale_coords(transformed_img_shape, pred, original_img_shape)
+            pred = self._scale_coords(transformed_img_shape, pred, original_img_shape)
             return pred
         else:
             return None
