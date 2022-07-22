@@ -1,5 +1,6 @@
 import csv
 import glob
+import os
 
 import cv2
 import tqdm
@@ -25,12 +26,13 @@ if __name__ == '__main__':
     with open(f'{dataset_name}_result.csv', mode='w', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter=',', lineterminator='\n')
         writer.writerow(['image_number', 'image_width', 'image_height', 'image_area',
-                         'face_width', 'face_height', 'face_area'])
+                         'face_width', 'face_height', 'face_area', 'image_name'])
 
-        for image_number, img_path in enumerate(tqdm.tqdm(img_paths, 'Process images'), start=1):
+        for image_number, img_path in enumerate(tqdm.tqdm(img_paths, 'Process images')):
             img = cv2.imread(img_path)
             assert img is not None
 
+            image_name = os.path.basename(img_path)
             image_height, image_width = img.shape[:2]
             image_area = image_width * image_height
 
@@ -45,4 +47,4 @@ if __name__ == '__main__':
                     face_height = y2 - y1
                     face_area = face_width * face_height
                     writer.writerow([image_number, image_width, image_height, image_area,
-                                     face_width, face_height, face_area])
+                                     face_width, face_height, face_area, image_name])
