@@ -5,8 +5,8 @@ import cv2
 import numpy as np
 import torch
 
-from backbone_code.yolo5face_code.utils import check_img_size, letterbox, non_max_suppression_face
-from backbone_code.yolo5face_code.yolo import Model
+from yolo5face_code.utils import check_img_size, letterbox, non_max_suppression_face
+from yolo5face_code.yolo import Model
 
 
 class YOLO5Face:

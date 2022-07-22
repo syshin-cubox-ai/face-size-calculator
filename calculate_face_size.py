@@ -22,7 +22,7 @@ if __name__ == '__main__':
         device='cuda',
     )
 
-    with open('../ML_infer_prototype/result.csv', mode='w', encoding='utf-8') as f:
+    with open('result.csv', mode='w', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter=',', lineterminator='\n')
         writer.writerow(['face number', 'width', 'height', 'area'])
 

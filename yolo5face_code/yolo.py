@@ -1,15 +1,13 @@
 import logging
 import math
-import sys
 from copy import deepcopy
 from pathlib import Path
 
 import torch
 import torch.nn as nn
 
-from backbone_code.yolo5face_code.common import Conv, Bottleneck, SPP, BottleneckCSP, C3, ShuffleV2Block, Concat, StemBlock
+from yolo5face_code.common import Conv, Bottleneck, SPP, BottleneckCSP, C3, ShuffleV2Block, Concat, StemBlock
 
-sys.path.append('./')  # to run '$ python *.py' files in subdirectories
 logger = logging.getLogger(__name__)
 
 
